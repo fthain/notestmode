@@ -1,0 +1,34 @@
+Name            notestmode;
+PartNo          None;
+Date            2025-04-12;
+Revision        3;
+Designer        F. Thain;
+Company         None;
+Assembly        None;
+Location        None;
+Device          g16v8as; /* Simple mode */
+
+/* Actual device used: ATF16V8C-7JU */
+
+/* Inputs */
+
+Pin 4 = !module_WE;
+Pin 6 = !module_CAS;
+Pin 8 = !module_RAS;
+
+/* Outputs */
+
+Pin 12 = !CAS;
+Pin 13 = !WE;
+Pin 14 = !RAS;
+Pin 18 = CBR;
+
+/* Logic */
+
+CBR = (module_CAS & !module_RAS & !CBR) # ((module_RAS # module_CAS) & CBR);
+
+WE = module_WE & module_RAS & RAS & !CBR;
+
+CAS = module_CAS;
+
+RAS = module_RAS;
